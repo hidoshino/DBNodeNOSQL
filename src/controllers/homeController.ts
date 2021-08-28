@@ -8,18 +8,40 @@ import User from '../models/User';
 
 
 export const home = async (req: Request, res: Response) => {
-    let newUser = await User.create({
-        name: 'Marco',
-        email: 'rmarco@gmail.com',
-        interests: ['Academia'],
-        age: 32
-    })
+    
+
+    // let newUser = await User.create({
+    //     name,
+    //     email,
+    //     interests,
+    //     age
+    // })
 
     let users = await User.find({});
 
-    res.json({users});
+    res.render('pages/home', {
+        users
+    })
 }
 
+
+export const createUser = async (req: Request, res: Response) => {
+    let { name, interests, age, email } = req.body;
+    let arrayInterests : [string] = interests.split(" ");
+
+    let newUser = {
+        name,
+        interests : arrayInterests,
+        age,
+        email
+    }
+    await User.create(newUser);
+    const users = await User.find({});
+
+    res.render('pages/home', {
+        users
+    })
+}
 
 
 
