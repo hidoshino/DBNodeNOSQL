@@ -8,17 +8,8 @@ import User from '../models/User';
 
 
 export const home = async (req: Request, res: Response) => {
-    
-
-    // let newUser = await User.create({
-    //     name,
-    //     email,
-    //     interests,
-    //     age
-    // })
 
     let users = await User.find({});
-
     res.render('pages/home', {
         users
     })
@@ -47,6 +38,54 @@ export const createUser = async (req: Request, res: Response) => {
     })
 }
 
+export const update = async (req: Request, res: Response) => {
+    
+    await User.updateMany(
+        {age: {$lte: 18}},
+        {age : 18}
+        /*
+            1° param => Coleta todos que é menor ou igual a 18 anos 
+            2° param => Atualiza os dados atráves do objeto
+         */
+    )
+}
+
+
+export const updateUser = async (req: Request, res: Response) => {
+    
+    await User.updateOne(
+        {email: 'hidoshino@gmail.com'},
+        {age : 24}
+        /*
+            1° param => Coleta todos que é menor ou igual a 18 anos 
+            2° param => Atualiza os dados atráves do objeto
+         */
+    )
+}
+
+
+export const deleteUser = async (req: Request, res: Response) => {
+    await User.findOneAndDelete({
+        email: 'rmarco@gmail.com'
+    })   
+}
+
+
+export const updateAgeUser = async (req: Request, res: Response) => {
+    let email = req.params;
+
+    let user = await User.findOne({
+        email
+    });
+    user.age += 1;
+    await user.save();
+
+    const users = await User.find({});
+
+    res.render('pages/home', {
+        users
+    })
+}
 
 
 // $gt -> Greater Than = Maior
