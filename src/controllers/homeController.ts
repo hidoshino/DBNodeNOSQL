@@ -27,7 +27,8 @@ export const home = async (req: Request, res: Response) => {
 
 export const createUser = async (req: Request, res: Response) => {
     let { name, interests, age, email } = req.body;
-    let arrayInterests : [string] = interests.split(" ");
+
+    let arrayInterests : [string] = interests.split(",");
 
     let newUser = {
         name,
@@ -35,6 +36,9 @@ export const createUser = async (req: Request, res: Response) => {
         age,
         email
     }
+
+    console.log(newUser)
+
     await User.create(newUser);
     const users = await User.find({});
 
