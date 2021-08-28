@@ -1,10 +1,27 @@
 import { Request, Response } from 'express';
 import User from '../models/User';
 
+// export const home = async (req: Request, res: Response) => {
+//     let users = await User.find({}).skip(0).limit(2)
+//     res.json({users});
+// }
+
+
 export const home = async (req: Request, res: Response) => {
-    let users = await User.find({}).skip(0).limit(2)
+    let newUser = await User.create({
+        name: 'Marco',
+        email: 'rmarco@gmail.com',
+        interests: ['Academia'],
+        age: 32
+    })
+
+    let users = await User.find({});
+
     res.json({users});
 }
+
+
+
 
 // $gt -> Greater Than = Maior
 // $gte -> Greater or Equal = Maior ou igual
@@ -36,3 +53,5 @@ export const home = async (req: Request, res: Response) => {
     limit(x) x=> qtd de objetos a exibir
     skip(x).limit(x) => Paginate Pula x e exibe x Pra frente
 */
+
+
