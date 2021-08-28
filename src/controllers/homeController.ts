@@ -3,8 +3,8 @@ import User from '../models/User';
 
 export const home = async (req: Request, res: Response) => {
     let users = await User.find({
-        interests: "eletrônica"
-    });
+        interests: "eletronica"
+    }).sort({ age: 1 });
     res.json({users});
 }
 
@@ -20,4 +20,13 @@ export const home = async (req: Request, res: Response) => {
         age: { $gt: 45, $lt: 60 } // Maior que 45 e menor que 60
     });
 
+*/
+
+
+// sort() -> Ordenação
+
+/*
+    1 or -1
+    1 -> ascendente
+   -1 -> decrescente
 */
